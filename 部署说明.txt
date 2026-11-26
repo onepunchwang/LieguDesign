@@ -1,0 +1,18 @@
+﻿LIEGU GitHub Pages 发布步骤
+
+1. 解压发布包，不要直接上传 ZIP。
+2. 仓库 Add file > Upload files，上传包里面的文件。
+3. 确认 main 分支根目录直接出现 index.html，全小写，不能是 index.html.txt。
+4. Commit changes 保存。
+5. Settings > Pages。
+6. Source 选择 Deploy from a branch。
+7. Branch 选择 main，目录选择 /(root)，点击 Save。
+8. Actions 中 Pages 发布任务成功后，回 Pages 点击 Visit site。
+9. 打开网页后点“分享网页”，复制网址再转发。
+
+提示：发布可能需要等待。不要打开 /dashboard 等旧地址；本版本首页在仓库网站根目录。
+
+如果仍然 404，确认上传的不是一个额外的外层文件夹，Pages 也没有选成 /docs。
+
+本版本内容和图片保存在各自浏览器，不会自动集中收到设计师作业。
+更多说明见 README.md。

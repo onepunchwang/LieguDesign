@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="zh-CN">
+<!--
+LIEGU GitHub Pages 版。
+请把本文件以 index.html（全部小写）放在 GitHub 仓库根目录。
+GitHub 仓库 Settings > Pages > Deploy from a branch > main > /(root) > Save。
+页面无外部脚本、字体、图片资源或服务端接口；可从仓库子目录地址打开。
+填写记录保存在操作者的浏览器；本版本不提供团队云端同步。
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#202328">
+  <meta name="description" content="LIEGU 每周设计与样品进度汇报，集中展示设计成果与样品照片。">
+  <title>LIEGU · 设计与样品周报</title>
+<style>
+:root{color-scheme:light;--ink:#202328;--muted:#6d7480;--line:#e5e7eb;--surface:#f5f6f8;--amber:#fff9ed;--green:#246347;--blue:#355e91;--red:#ba3932;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-size:16px;line-height:1.6}
+button,input,select,textarea{font:inherit;color:inherit}
+button,a,input,select,textarea{touch-action:manipulation}
+button{cursor:pointer}
+button:disabled{cursor:wait;opacity:.6}
+button:focus-visible,a:focus-visible{outline:3px solid #8bb0e0;outline-offset:3px}
+input,select,textarea{border:1px solid #dfe2e6;border-radius:6px;padding:10px 12px;background:#fff;min-width:0;width:100%;font-size:16px}
+input:focus,textarea:focus,select:focus{outline:2px solid #92b2d8;outline-offset:1px}
+input[type=date]{min-height:44px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236d7480' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+textarea{resize:vertical;line-height:1.7}
+button svg{height:19px;width:19px;flex:none}
+label{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:500}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:7px;background:#fff;padding:10px 16px;min-height:44px;font-size:14px;font-weight:550;white-space:nowrap;transition:background .15s,border-color .15s}
+.button:hover{background:#f0f1f3}
+.button.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.button.dark:hover{background:#3b4047}
+.button.outline{border-color:#dfe2e6}
+.button.quiet{color:#59616d;background:transparent}
+.button.quiet:hover{background:#f1f3f6}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:84px;border-bottom:1px solid var(--line);padding:18px 44px}
+.brand{text-decoration:none;font-size:27px;letter-spacing:3px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:26px}
+.brand span{font-size:14px;font-weight:400;color:var(--muted);letter-spacing:1px;border-left:1px solid #dce0e5;padding-left:24px;white-space:nowrap}
+.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.save-state{font-size:13px;color:var(--muted);margin-right:15px;white-space:nowrap}
+.page{max-width:1488px;padding:42px 44px 0;margin:auto}
+.report-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:32px}
+.eyebrow{margin:0 0 8px;font-size:12px;font-weight:650;letter-spacing:2.2px;color:var(--muted)}
+h1{margin:0;font-size:34px;font-weight:650;letter-spacing:-1px;line-height:1.4}
+h2{margin:0;font-size:23px;font-weight:650;line-height:1.45}
+.heading-note{color:var(--muted);margin:10px 0 0;font-size:14px}
+.report-switch label{margin-bottom:7px;color:var(--muted);font-size:13px}
+.report-switch select{width:230px}
+.report-meta{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.report-meta label{color:var(--muted);font-size:13px;font-weight:400}
+.report-meta input,.report-meta select{background:var(--amber);border-color:#efe9dc;font-size:14px;font-weight:450;color:var(--ink);height:44px}
+.report-meta output{display:flex;align-items:center;min-height:44px;font-size:15px;color:var(--ink);padding:9px 0}
+.display-value{display:none}
+.error{color:var(--red);font-size:14px;margin:10px 0}
+.page-tabs{display:flex;gap:28px;align-items:center;border-bottom:1px solid var(--line);margin-bottom:30px}
+.tab{position:relative;border:0;background:transparent;color:var(--muted);padding:17px 0;font-size:14px;white-space:nowrap}
+.tab.active{color:var(--ink);font-weight:650}
+.tab.active:after{content:"";position:absolute;height:2px;background:var(--ink);bottom:-1px;left:0;right:0}
+.tab span{font-size:12px;padding:2px 6px;margin-left:5px;border-radius:4px;background:#f1f3f5;font-weight:500}
+.section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+.secondary{font-size:14px;color:var(--muted);margin:6px 0 0}
+.section-heading>.secondary{margin:0}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;text-align:left;line-height:1.6}
+th{font-size:14px;font-weight:550;text-align:left;white-space:nowrap}
+td{font-size:15px}
+th,td{padding:16px 20px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.summary-table{min-width:750px}
+.summary-table th{background:var(--ink);color:#fff}
+.summary-table th:nth-child(n+3),.summary-table td:nth-child(n+3){text-align:center}
+.summary-table th:first-child{width:18%}
+.summary-table th:nth-child(2){width:33%}
+.summary-table td:nth-child(n+3){font-size:27px;font-weight:650;background:#f5f6f8;line-height:1.3;font-variant-numeric:tabular-nums}
+.summary-table .danger-count{color:var(--red)}
+.summary-table input{padding:3px 0;border:0;background:transparent;font-size:16px;max-width:180px}
+.summary-table td:nth-child(2){font-size:14px;color:#555f6c}
+.section-note{margin:10px 0 0;color:var(--muted);font-size:12px}
+.achievements-section{padding-top:36px;margin-top:8px}
+.achievement-heading{margin-bottom:12px}
+.heading-row{display:flex;align-items:center;gap:12px}
+.count-label{font-size:12px;color:#707884;background:#f0f2f5;border-radius:4px;padding:3px 8px;white-space:nowrap}
+.gallery-filters{display:flex;gap:8px;margin:20px 0}
+.filter{border:1px solid transparent;background:transparent;color:var(--muted);padding:7px 14px;border-radius:6px;font-size:14px;min-height:38px}
+.filter.active{background:#eceff2;color:var(--ink);font-weight:550}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;position:relative}
+.gallery.empty{grid-template-columns:repeat(2,minmax(0,1fr))}
+.upload-tile{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:13px;min-height:255px;width:100%;background:#f8f9fb;border:1px dashed #cdd2da;border-radius:10px;padding:28px;color:var(--ink);transition:background .15s,border-color .15s}
+.upload-tile:hover,.upload-tile.dragging{background:#edf2f8;border-color:#7691b2}
+.upload-tile>.upload-icon{width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:11px;color:#788494}
+.upload-icon svg{width:23px;height:23px}
+.upload-tile strong{font-size:16px;font-weight:550}
+.upload-tile small{font-size:13px;color:var(--muted);font-weight:400}
+.gallery.dragging:after{content:"松开鼠标，插入成果图片";position:absolute;inset:0;z-index:2;background:#eef3fbe8;border:2px dashed #7b99c0;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#355e91;pointer-events:none}
+.achievement-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;min-width:0;break-inside:avoid}
+.picture-frame{position:relative}
+.picture-area{display:block;border:0;border-bottom:1px solid var(--line);width:100%;padding:0;aspect-ratio:4/3;background:#f7f8fa;position:relative;overflow:hidden}
+.picture-area img{width:100%;height:100%;display:block;object-fit:contain;background:#fff;transition:transform .2s}
+.picture-area:hover img{transform:scale(1.025)}
+.picture-empty{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#657181;font-size:14px}
+.picture-empty svg{height:27px;width:27px}
+.image-count{position:absolute;bottom:12px;right:12px;background:#202328c9;color:white;font-size:12px;border-radius:5px;padding:3px 8px}
+.type-label{position:absolute;left:12px;top:12px;font-size:12px;border-radius:4px;background:#ffffffed;color:#384152;padding:3px 8px;border:1px solid #e1e5ea}
+.card-body{padding:17px 18px}
+.card-heading{display:flex;align-items:start;justify-content:space-between;gap:10px}
+.card-body h3{font-size:17px;font-weight:600;line-height:1.55;margin:0;overflow-wrap:anywhere}
+.card-code{font-size:12px;color:#7d8490;margin-bottom:4px;letter-spacing:.5px}
+.badge{display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;font-size:12px;font-weight:500;border-radius:4px;white-space:nowrap;background:#f0f2f5;color:#606a77}
+.badge.green{background:#e9f3ed;color:#266147}
+.badge.amber{background:#fff2d7;color:#946318}
+.badge.blue{background:#eaf0f9;color:#355e91}
+.badge.red{background:#fcece9;color:#af362d}
+.card-progress{font-size:14px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;color:#5d6673;margin:12px 0 16px}
+.card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;color:#8a919b}
+.card-actions{display:flex;align-items:center;justify-content:space-between;gap:4px;border-top:1px solid var(--line);margin-top:15px;padding-top:10px}
+.card-actions .button{padding:5px 7px;min-height:34px;font-size:13px}
+.card-actions .remove-action{color:#9a5960}
+.support-section{margin-top:38px}
+.support-section h2{font-size:21px}
+.empty-line{padding:22px 24px;color:#9299a3;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.support-table{min-width:760px}
+.support-table th{background:#f5f6f8;color:#606977}
+.support-table td{vertical-align:top}
+.support-table input,.support-table textarea,.support-table select{border-color:transparent;background:transparent;padding:4px 0;min-height:34px;font-size:14px;line-height:1.7}
+.support-table input:hover,.support-table textarea:hover,.support-table select:hover{background:var(--amber)}
+.support-table textarea{min-width:200px;resize:vertical}
+.support-table th:first-child{width:15%}
+.support-table th:nth-child(2){width:40%}
+.support-table th:nth-child(3){width:12%}
+.support-table th:nth-child(4){width:16%}
+.support-table th:nth-child(5){width:12%}
+.support-table th:last-child{width:5%}
+.support-table .icon-button{width:30px;height:34px}
+.support-table .print-value{display:none;white-space:pre-wrap}
+.detail-table{min-width:1200px}
+.detail-table thead{background:var(--ink);color:#fff}
+.detail-table td{vertical-align:top;font-size:14px}
+.detail-table .title-cell{min-width:160px;max-width:220px}
+.detail-table strong{display:block;font-size:15px;font-weight:550}
+.detail-table .title-cell small{color:var(--muted)}
+.detail-table .text-cell{min-width:220px;max-width:300px;white-space:pre-wrap}
+.detail-table .date-cell{min-width:140px;font-size:13px;white-space:nowrap}
+.detail-table .date-cell span{color:var(--muted)}
+.detail-empty{padding:70px 30px;text-align:center;color:var(--muted);border:1px solid var(--line);border-radius:8px}
+.detail-empty p{margin:0 0 16px}
+#detailView{padding-top:3px;min-height:430px}
+footer{display:flex;gap:16px;justify-content:space-between;align-items:center;padding:26px 0;margin-top:50px;border-top:1px solid var(--line);font-size:12px;color:#8b929d;flex-wrap:wrap}
+.icon-button{border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:6px;color:#7a828e}
+.icon-button:hover{background:#f0f2f4;color:#333}
+.icon-button svg{width:18px;height:18px}
+dialog{border:0;padding:0;color:var(--ink);box-shadow:0 24px 100px #11182733;border-radius:14px;max-width:calc(100vw - 30px)}
+dialog::backdrop{background:#17202d66;backdrop-filter:blur(3px)}
+.record-dialog{width:820px;max-height:90vh}
+.record-dialog form{display:flex;flex-direction:column;max-height:90vh}
+.dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 28px;border-bottom:1px solid var(--line)}
+.dialog-heading h2{font-size:22px}
+.dialog-heading .eyebrow{font-size:10px;margin-bottom:3px}
+.dialog-body{padding:25px 28px;overflow-y:auto}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px}
+.form-grid label{font-size:14px}
+.span-two{grid-column:span 2}
+.sample-field[hidden]{display:none}
+.dialog-footer{display:flex;gap:12px;align-items:center;justify-content:flex-end;padding:18px 28px;border-top:1px solid var(--line);background:#fbfcfd}
+.image-editor{margin-top:25px}
+.image-editor .section-heading{margin-bottom:12px}
+.draft-images{display:flex;gap:12px;flex-wrap:wrap}
+.draft-image{position:relative;width:110px;height:95px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.draft-image .thumb{display:block;width:100%;height:100%;padding:0;border:0;background:#fff}
+.draft-image img{height:100%;width:100%;object-fit:contain}
+.draft-image .remove-thumb{position:absolute;right:3px;top:3px;border-radius:50%;width:24px;height:24px;background:#202328bb;border:0;color:#fff;padding:0;line-height:1;font-size:18px}
+.draft-drop{width:100%;background:#f7f8fa;border:1px dashed #d0d5dd;border-radius:7px;text-align:center;padding:28px;font-size:14px;color:var(--muted)}
+.image-editor.dragging{outline:2px dashed #7691b2;outline-offset:8px}
+.small{font-size:12px}
+.check-label{flex-direction:row;gap:9px;align-items:center;margin-top:20px;color:#5e6671;font-weight:400}
+.check-label input{width:17px;height:17px;accent-color:var(--ink)}
+.small-dialog{width:440px}
+.small-dialog .dialog-body{min-height:150px}
+.lightbox{position:fixed;inset:0;margin:0;max-width:none;max-height:none;width:100%;height:100%;background:#101216f7;border-radius:0;box-shadow:none;padding:60px;color:#fff}
+.lightbox[open]{display:flex;align-items:center;justify-content:center;gap:20px}
+.lightbox figure{margin:0;width:calc(100% - 100px);height:calc(100% - 20px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px}
+.lightbox img{max-width:100%;max-height:calc(100% - 40px);object-fit:contain}
+.lightbox figcaption{font-size:14px;color:#dde2e9;text-align:center}
+.lightbox-close{position:absolute;right:24px;top:16px;color:#fff;background:#ffffff12;border-color:#ffffff30;z-index:2}
+.lightbox-close:hover{background:#ffffff25}
+.lightbox-nav{background:#ffffff14;color:#fff;border:1px solid #ffffff20;flex:none;font-size:32px;font-weight:200;width:44px;height:56px;border-radius:6px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#202328;color:#fff;padding:13px 21px;border-radius:8px;font-size:14px;box-shadow:0 10px 25px #0002;z-index:20;max-width:calc(100% - 32px);width:max-content;text-align:center}
+.presenting .editor-only{display:none!important}
+.presenting .report-meta input,.presenting .report-meta select{display:none}
+.presenting .display-value{display:block;color:var(--ink);font-size:15px;min-height:44px;padding:9px 0}
+.presenting .report-meta{margin-bottom:30px}
+.presenting .report-switch{display:none}
+.presenting .summary-table input{pointer-events:none}
+.presenting .support-table .print-value{display:block}
+.presenting .support-table input,.presenting .support-table select,.presenting .support-table textarea{display:none}
+.presenting .gallery.empty .upload-tile{cursor:default;pointer-events:none}
+.presenting .gallery.empty .upload-tile small{display:none}
+.presenting .topbar{background:#fff}
+.presenting .page{max-width:1540px}
+[hidden]{display:none!important}
+
+@media(min-width:1600px){.page{padding-top:46px}
+}
+@media(max-width:1150px){.topbar{padding:16px 28px}
+.brand span{display:none}
+.save-state{display:none}
+.page{padding:30px 28px 0}
+.report-meta{grid-template-columns:repeat(3,minmax(0,1fr))}
+.report-heading{align-items:flex-start}
+.report-switch .row{flex-direction:column;align-items:stretch}
+.report-switch select{width:200px}
+.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+.top-actions .button{padding:8px 12px}
+}
+@media(max-width:760px){.topbar{padding:14px 18px;gap:12px;align-items:flex-start}
+.brand{font-size:24px;padding-top:4px}
+.top-actions{gap:5px;max-width:75%}
+.top-actions .quiet{display:none}
+.top-actions .button{font-size:13px;padding:8px 10px;min-height:40px}
+.page{padding:26px 18px 0}
+.report-heading{display:block;margin-bottom:24px}
+h1{font-size:29px}
+.report-switch{margin-top:20px}
+.report-switch label{display:none}
+.report-switch .row{flex-direction:row;flex-wrap:nowrap}
+.report-switch select{flex:1;width:auto}
+.report-meta{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.report-meta input,.report-meta select{font-size:16px;padding:8px;max-width:100%}
+.page-tabs{gap:22px;margin-bottom:25px}
+.section-heading{align-items:flex-start;gap:12px;flex-wrap:wrap}
+.section-heading h2{font-size:22px}
+.section-heading>.secondary{font-size:12px}
+.achievement-heading{align-items:center}
+.achievement-heading>.row{gap:6px}
+.achievement-heading .button{padding:9px 11px;font-size:13px}
+.gallery,.gallery.empty{grid-template-columns:minmax(0,1fr)}
+.upload-tile{min-height:220px}
+.gallery{gap:18px}
+.count-label{font-size:11px}
+.section-note{font-size:12px;line-height:1.8}
+.support-section{margin-top:30px}
+footer{align-items:flex-start;flex-direction:column;gap:5px;margin-top:34px}
+.form-grid{gap:14px}
+.dialog-heading,.dialog-body{padding:20px}
+.dialog-heading h2{font-size:20px}
+.dialog-footer{padding:15px 20px}
+.record-dialog{max-height:94vh}
+.record-dialog form{max-height:94vh}
+.lightbox{padding:70px 12px 25px;gap:6px}
+.lightbox figure{width:calc(100% - 60px)}
+.lightbox-nav{width:30px;height:45px;font-size:26px}
+.lightbox-close{right:15px}
+.support-table td,.support-table th{padding:13px}
+.table-wrap{border-radius:6px}
+}
+@media(max-width:380px){h1{font-size:25px}
+.top-actions .outline{display:none}
+.report-meta{gap:12px}
+.report-meta label{font-size:12px}
+.form-grid{grid-template-columns:1fr}
+.span-two{grid-column:span 1}
+.achievement-heading>.row{width:100%}
+.achievement-heading>.row .button{flex:1}
+.page-tabs{gap:16px}
+.page-tabs .tab{font-size:13px}
+}
+
+@media print{@page{size:A4 portrait;margin:12mm}
+body{font-size:11px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.topbar,.editor-only,.page-tabs,.toast,dialog{display:none!important}
+.page{max-width:none;padding:0}
+.report-heading{margin-bottom:18px}
+.eyebrow{font-size:9px}
+h1{font-size:25px}
+.heading-note{font-size:11px}
+.report-meta{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:12px 0;margin-bottom:20px}
+.report-meta label{font-size:10px}
+.report-meta input,.report-meta select{display:none}
+.report-meta output,.display-value{display:block;font-size:11px;min-height:24px;padding:3px 0;color:var(--ink)}
+.section-heading h2{font-size:18px}
+.secondary{font-size:10px}
+.table-wrap{overflow:visible}
+.summary-table,.support-table{min-width:0}
+.summary-table th,.summary-table td{font-size:10px;padding:10px 8px}
+.summary-table td:nth-child(n+3){font-size:19px}
+.summary-table input{font-size:11px;pointer-events:none}
+.section-note{font-size:9px}
+.achievements-section{padding-top:20px}
+.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.gallery.empty{display:none}
+.achievement-card{break-inside:avoid}
+.picture-area{aspect-ratio:4/3}
+.card-body{padding:11px}
+.card-body h3{font-size:13px}
+.card-code,.card-meta,.badge{font-size:9px}
+.card-progress{font-size:10px;margin:8px 0;line-height:1.7}
+.type-label,.image-count{font-size:9px}
+.support-section{margin-top:23px}
+.support-table input,.support-table select,.support-table textarea{display:none}
+.support-table .print-value{display:block;font-size:10px;white-space:pre-wrap}
+.support-table th,.support-table td{font-size:10px;padding:9px 7px}
+.empty-line{padding:12px;font-size:10px}
+.section-heading{margin-bottom:12px}
+footer{margin-top:20px;padding:12px 0;font-size:9px;display:flex;flex-direction:row}
+.section-heading,h2{break-after:avoid}
+.picture-area:hover img{transform:none}
+}
+
+
+/* Other views stay anchored to the upper-right corner of the main picture. */
+.picture-thumbnails{position:absolute;top:9px;right:9px;z-index:1;display:flex;flex-direction:column;gap:7px;width:clamp(50px,17%,64px);max-height:calc(100% - 56px);padding:3px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+
+.picture-thumbnail{display:block;flex:none;width:100%;aspect-ratio:1;padding:0;border:2px solid #fff;border-radius:6px;background:#fff;box-shadow:0 1px 5px #17202d2b;overflow:hidden;transition:border-color .15s}
+
+.picture-thumbnail img{display:block;width:100%;height:100%;object-fit:contain;background:#fff}
+
+.picture-thumbnail:hover{border-color:#788494}
+
+.picture-thumbnail:focus-visible{outline:3px solid #355e91;outline-offset:-3px}
+
+
+/* Weekly task names can wrap as a set without widening the page. */
+.gallery-filters{flex-wrap:wrap}
+
+.filter{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.type-label{max-width:calc(100% - 104px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.gallery.empty{grid-template-columns:minmax(0,1fr)}
+
+
+@media(max-width:760px){
+  .topbar{flex-wrap:wrap;align-items:center}
+
+  .top-actions{max-width:100%;width:100%;justify-content:flex-start;gap:6px}
+
+  .top-actions .quiet{display:inline-flex}
+
+}
+
+@media(max-width:380px){.top-actions .outline{display:inline-flex}
+}
+
+
+.local-note{border:1px solid #e2e5e9;background:#f7f8fa;border-radius:9px;padding:14px 18px;font-size:14px;color:#626c79;margin:0 0 25px;line-height:1.8}
+.local-note strong{color:#202328;font-weight:600}.local-note p{margin:4px 0 0}
+.static-empty{grid-column:1/-1;border:1px dashed #cdd2da;border-radius:9px;padding:38px 24px;margin:0;color:#6d7480;text-align:center;font-size:15px}
+.snapshot-value{white-space:pre-wrap;overflow-wrap:anywhere;display:block;min-height:24px;color:#202328;font-size:15px;font-weight:400}
+.snapshot .report-meta label{font-size:13px;color:#6d7480}.snapshot .report-meta .snapshot-value{background:#fff9ed;padding:9px 12px;min-height:44px}
+.snapshot .picture-area{cursor:default}.snapshot .picture-area:hover img{transform:none}
+.snapshot-images{margin-top:16px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:14px;color:#59616d}
+.snapshot-images summary{cursor:pointer}.snapshot-images figure{margin:14px 0 0}.snapshot-images img{display:block;width:100%;height:auto;object-fit:contain;background:#fff}.snapshot-images figcaption{margin-top:5px;font-size:12px;color:#737e8a}
+@media print{.local-note{display:none}.snapshot-images{display:none}}
+
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="LIEGU 周报首页">LIEGU<span>设计研发</span></a>
+    <div class="top-actions">
+      <span id="saveState" class="save-state" role="status">本机自动保存</span>
+      <button class="button quiet editor-only" id="backupButton">导出备份</button>
+      <button class="button quiet editor-only" id="importButton">导入备份</button>
+      <button class="button outline editor-only" id="printButton">导出 / 打印</button>
+      <button type="button" class="button outline editor-only" id="sharePageButton">分享网页</button>
+      <button class="button dark editor-only" id="exportHtmlButton">导出展示 HTML</button>
+      <button class="button outline" id="presentationButton">汇报模式</button>
+    </div>
+  </header>
+  <main class="page">
+    <aside class="local-note"><strong>LIEGU 周报 · 网页分享版</strong><p>发布后点击“分享网页”复制地址。填写内容和图片保存在各自浏览器；要分享已经填好的周报，请点击“导出展示 HTML”。请定期导出备份。</p></aside>
+    <noscript><p class="local-note">当前预览未运行交互代码。可查看表格样式；请下载后用浏览器打开，填写并导出展示文件。</p></noscript>
+    <section class="report-heading">
+      <div><p class="eyebrow">LIEGU WEEKLY REPORT</p><h1>每周设计与样品汇报</h1><p class="heading-note">设计进展与实物成果，在这里集中呈现。</p></div>
+      <div class="report-switch editor-only"><label for="reportSelect">当前周报</label><div class="row"><select id="reportSelect" aria-label="选择周报"><option>2026.11.23 — 11.29</option></select><button id="newReportButton" class="button outline">新建周报</button></div></div>
+    </section>
+    <section class="report-meta" aria-label="周报信息">
+      <label>周开始日期<input id="weekStart" type="date" data-meta="weekStart" value="2026-11-23"><span class="display-value" id="weekStartDisplay"></span></label>
+      <label>周结束日期<output id="weekEnd">2026.11.29</output></label>
+      <label>统计截至日期<input id="cutoff" type="date" data-meta="cutoff" value="2026-11-26"><span class="display-value" id="cutoffDisplay"></span></label>
+      <label>汇报人<input id="reporter" data-meta="reporter" placeholder="填写姓名" autocomplete="off"><span class="display-value" id="reporterDisplay"></span></label>
+      <label>汇报部门<input id="department" data-meta="department" value="设计研发" value="设计研发"><span class="display-value" id="departmentDisplay"></span></label>
+      <label>汇报状态<select id="reportStatus" data-meta="status"><option>草稿</option><option>已提交</option><option>已确认</option></select><span class="display-value" id="reportStatusDisplay"></span></label>
+    </section>
+    <p id="dateError" class="error" role="alert" hidden></p>
+    <nav class="page-tabs editor-only" aria-label="周报页面">
+      <button class="tab active" data-view="overview" aria-pressed="true">周报总览</button>
+      <button class="tab" data-view="design" aria-pressed="false">设计明细 <span id="designCount">0</span></button>
+      <button class="tab" data-view="sample" aria-pressed="false">样品明细 <span id="sampleCount">0</span></button>
+    </nav>
+    <div id="overviewView">
+      <section class="progress-section">
+        <div class="section-heading"><div><h2>本周进度</h2></div><span id="periodLabel" class="secondary">统计截至 2026.11.26</span></div>
+        <div class="table-wrap"><table class="summary-table"><thead><tr><th>本周任务</th><th>本周完成口径</th><th>本周跟进</th><th>本周完成</th><th>待审 / 修改</th><th>逾期未完成</th></tr></thead><tbody id="summaryRows"><tr><td><input id="designTaskLabel" aria-label="设计任务1名称" placeholder="LOGO设计" value="LOGO设计"></td><td>审核通过且本周定稿</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td><input data-task-id="task-2" aria-label="设计任务2名称" placeholder="设计任务2" value=""></td><td>审核通过且本周定稿</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td><input data-task-id="task-3" aria-label="设计任务3名称" placeholder="设计任务3" value=""></td><td>审核通过且本周定稿</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td><input data-task-id="task-4" aria-label="设计任务4名称" placeholder="设计任务4" value=""></td><td>审核通过且本周定稿</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>样品</td><td>本周实际到样</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></tbody></table></div>
+        <p class="section-note">统计来自设计、样品明细。设计完成按审核通过且本周定稿统计；样品完成按本周实际到样统计。</p>
+      </section>
+      <section id="achievementsSection" class="achievements-section">
+        <div class="section-heading achievement-heading"><div><div class="heading-row"><h2>设计图稿</h2><span class="count-label" id="achievementCount">0 项成果</span></div><p class="secondary">设计稿、结构细节与市场款参考</p></div><div class="row editor-only"><button class="button dark" id="uploadButton">提交作品</button></div></div>
+        <div id="galleryFilters" class="gallery-filters editor-only" role="group" aria-label="本周任务分类"><button type="button" class="filter active" data-filter="all" aria-pressed="true">全部设计图</button><button type="button" class="filter " data-filter="design-main" aria-pressed="false">LOGO设计</button><button type="button" class="filter " data-filter="task-2" aria-pressed="false">设计任务2</button><button type="button" class="filter " data-filter="task-3" aria-pressed="false">设计任务3</button><button type="button" class="filter " data-filter="task-4" aria-pressed="false">设计任务4</button><button type="button" class="filter " data-filter="sample" aria-pressed="false">样品</button></div>
+        <div id="gallery" class="gallery empty" aria-label="设计图稿图片"><p class="static-empty">本周暂无设计图稿。请在浏览器中打开本文件，点击“提交作品”，填写任务并插入图片。</p></div>
+      </section>
+      <section class="support-section"><div class="section-heading"><h2>风险与待确认</h2><button class="button quiet editor-only" id="addRiskButton">＋ 添加事项</button></div><div id="risks"><div class="empty-line">本周暂无待确认事项。</div></div></section>
+      <section class="support-section"><div class="section-heading"><h2>下周重点计划</h2><button class="button quiet editor-only" id="addPlanButton">＋ 添加计划</button></div><div id="plans"><div class="empty-line">填写下周交付内容、负责人及截止日期。</div></div></section>
+    </div>
+    <section id="detailView" hidden><div class="section-heading"><div><h2 id="detailTitle">设计明细</h2><p class="secondary" id="detailDescription"></p></div><button class="button dark" id="addRecordButton">新增记录</button></div><div class="table-wrap" id="detailTable"></div></section>
+    <footer><span>LIEGU · 设计研发周报</span><span class="editor-only">本机自动保存；分享网页入口或导出带图片的展示文件。</span><span id="footerPeriod"></span></footer>
+  </main>
+  <input type="file" id="imagePicker" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp" multiple hidden>
+  <input type="file" id="backupPicker" accept="application/json,.json" hidden>
+  <dialog id="recordDialog" class="record-dialog">
+    <form id="recordForm">
+      <div class="dialog-heading"><div><p class="eyebrow">WEEKLY ACHIEVEMENT</p><h2 id="dialogTitle">提交作品</h2></div><button class="icon-button" type="button" data-close="recordDialog" aria-label="关闭"></button></div>
+      <div class="dialog-body">
+        <div class="form-grid">
+          <label>对应本周任务<select name="taskKey"></select></label>
+          <label>款号<input name="code" placeholder="如 LG-001"></label>
+          <label class="span-two">鞋款名称<input name="name" required maxlength="100" placeholder="填写鞋款名称"></label>
+          <label>设计师<input name="owner" placeholder="填写设计师姓名"></label>
+          <label id="stageField">当前阶段<select name="stage"></select></label>
+          <label class="sample-field">打样工厂<input name="factory" placeholder="工厂名称"></label>
+          <label class="sample-field">打样轮次<select name="round"><option>首样</option><option>二样</option><option>三样</option><option>四样及以上</option><option>确认样</option></select></label>
+          <label>审核 / 确认结果<select name="review"><option>未提交</option><option>待审核</option><option>待确认</option><option>修改</option><option>通过</option></select></label>
+          <label><span id="plannedLabel">计划定稿日期</span><input type="date" name="planned"></label>
+          <label><span id="actualLabel">实际定稿日期</span><input type="date" name="actual"></label>
+          <label class="span-two">设计说明<textarea name="goal" rows="2" placeholder="填写设计理念、鞋型结构、材料与配色说明"></textarea></label>
+          <label class="span-two">工艺及风险<textarea name="issue" rows="2" placeholder="填写制作工艺、材料或结构风险及处理建议"></textarea></label>
+        </div>
+        <div class="image-editor"><div class="section-heading"><label>成果图片</label><button type="button" class="button outline" id="draftUploadButton">插入图片</button></div><div id="draftImages" class="draft-images"></div><p class="secondary small">支持多选与拖拽，点击缩略图可放大查看。</p></div>
+        <label class="check-label"><input type="checkbox" name="featured"> 在周报总览的“设计图稿”中展示</label>
+      </div>
+      <div class="dialog-footer"><button type="button" class="button outline" data-close="recordDialog">取消</button><button type="submit" class="button dark">保存成果</button></div>
+    </form>
+  </dialog>
+  <dialog id="lightbox" class="lightbox"><button class="lightbox-close button" id="closeLightbox" aria-label="关闭大图">关闭</button><button class="lightbox-nav previous" id="previousImage" aria-label="上一张">‹</button><figure><img id="lightboxImage" alt=""><figcaption id="lightboxCaption"></figcaption></figure><button class="lightbox-nav next" id="nextImage" aria-label="下一张">›</button></dialog>
+  <dialog id="newReportDialog" class="small-dialog"><form id="newReportForm"><div class="dialog-heading"><h2>新建周报</h2><button class="icon-button" type="button" data-close="newReportDialog" aria-label="关闭"></button></div><div class="dialog-body"><label>周开始日期<input name="weekStart" type="date" required></label><p class="secondary">新周报从空白开始，历史周报会保留。</p></div><div class="dialog-footer"><button type="button" class="button outline" data-close="newReportDialog">取消</button><button class="button dark" type="submit">创建周报</button></div></form></dialog>
+
+  <dialog id="sharePageDialog" class="small-dialog">
+    <div class="dialog-heading"><h2>分享网页</h2><button type="button" class="icon-button" data-close="sharePageDialog" aria-label="关闭分享窗口"></button></div>
+    <div class="dialog-body">
+      <label for="sharePageUrl">网页地址</label><input id="sharePageUrl" readonly aria-label="网页地址">
+      <p class="secondary">把此地址转发给设计师，对方可以打开并填写自己的周报。每个人的内容和图片分别保存在自己的浏览器。</p>
+      <p class="secondary">分享已填好的图稿，请使用“导出展示 HTML”；集中收作业需另外接入云端保存。</p>
+    </div>
+    <div class="dialog-footer"><button type="button" class="button dark" id="copyPageLinkButton">复制网页链接</button></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script id="appCode">
+"use strict";
+const $ = (s, root = document) => root.querySelector(s);
+const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+const uid = () => globalThis.crypto?.randomUUID?.() || "id-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const icon = (name) => {
+  const paths = { image: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>', plus: '<path d="M12 5v14M5 12h14"/>', close: '<path d="m6 6 12 12M18 6 6 18"/>', trash: '<path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6"/>', upload: '<path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/>' };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.image}</svg>`;
+};
+const validISODate = (date) => {
+  if (typeof date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
+  const d = /* @__PURE__ */ new Date(date + "T12:00:00Z");
+  return !Number.isNaN(d.valueOf()) && d.toISOString().slice(0, 10) === date;
+};
+const addDays = (date, days) => {
+  if (!validISODate(date)) return "";
+  const d = /* @__PURE__ */ new Date(date + "T12:00:00Z");
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+};
+const formatDate = (value) => value ? value.replaceAll("-", ".") : "—";
+const makeReport = (weekStart = "2026-11-23", reporter = "") => ({ id: uid(), weekStart, cutoff: addDays(weekStart, 6), reporter, department: "设计研发", status: "草稿", designLabel: "LOGO设计", extraTasks: Array.from({ length: 3 }, (_, i) => ({ id: `task-${i + 2}`, label: "" })), assignmentNotes: "", items: [], risks: [], plans: [] });
+const initialReport = makeReport("2026-11-23");
+initialReport.cutoff = "2026-11-26";
+initialReport.status = "草稿";
+let state = { version: 1, activeReportId: initialReport.id, reports: [initialReport] };
+let db = null, view = "overview", filter = "all", draft = null, uploadContext = { type: "design" }, saveTimer, toastTimer, lightboxImages = [], lightboxIndex = 0, dragDepth = 0, saveChain = Promise.resolve();
+let localDirty = false, saveSequence = 0;
+const deletedSubmissionIds = /* @__PURE__ */ new Set();
+const imageSrc = (image) => image.data || image.url || "";
+function ensureTasks(report) {
+  report.extraTasks = Array.isArray(report.extraTasks) ? report.extraTasks.slice(0, 3) : [];
+  while (report.extraTasks.length < 3) report.extraTasks.push({ id: `task-${report.extraTasks.length + 2}`, label: "" });
+  return report.extraTasks;
+}
+function taskChoices(report = current()) {
+  return [{ id: "design-main", label: report.designLabel || "设计任务1", type: "design" }, ...ensureTasks(report).map((task, i) => ({ ...task, label: task.label || `设计任务${i + 2}`, type: "design" })), { id: "sample", label: "样品", type: "sample" }];
+}
+function itemTask(item, report = current()) {
+  const tasks = taskChoices(report);
+  return tasks.find((task) => task.id === item.taskKey) || tasks.find((task) => task.type === item.type) || tasks[0];
+}
+function galleryTask() {
+  return taskChoices().find((task) => task.id === filter) || taskChoices()[0];
+}
+function renderGalleryFilters() {
+  const tasks = taskChoices();
+  if (filter !== "all" && !tasks.some((task) => task.id === filter)) filter = "all";
+  $("#galleryFilters").innerHTML = [{ id: "all", label: "全部设计图" }, ...tasks].map((task) => `<button type="button" class="filter ${filter === task.id ? "active" : ""}" data-filter="${task.id}" aria-pressed="${filter === task.id}" title="${escapeHTML(task.label)}">${escapeHTML(task.label)}</button>`).join("");
+}
+function openGalleryEditor(taskKey = filter) {
+  const task = taskChoices().find((task2) => task2.id === taskKey) || taskChoices()[0];
+  openEditor(null, task.type, true, task.id);
+}
+const current = () => state.reports.find((r) => r.id === state.activeReportId) || state.reports[0];
+const dateValid = (r) => !!r.weekStart && !!r.cutoff && r.cutoff >= r.weekStart && r.cutoff <= addDays(r.weekStart, 6);
+const notify = (message) => {
+  $("#toast").textContent = message;
+  $("#toast").hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("#toast").hidden = true, 3700);
+};
+const LOCAL_KEY = "liegu-weekly-local-v1";
+const dbReady = new Promise((resolve) => {
+  try {
+    const request = indexedDB.open("liegu-weekly-standalone", 1);
+    request.onupgradeneeded = () => request.result.createObjectStore("workspace");
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => resolve(null);
+    request.onblocked = () => resolve(null);
+  } catch {
+    resolve(null);
+  }
+});
+async function readLocal() {
+  db = await dbReady;
+  if (!db) {
+    const raw = localStorage.getItem(LOCAL_KEY);
+    return raw ? JSON.parse(raw) : null;
+  }
+  return await new Promise((resolve, reject) => {
+    const tx = db.transaction("workspace", "readonly");
+    const request = tx.objectStore("workspace").get("reports");
+    request.onsuccess = () => resolve(request.result || null);
+    request.onerror = () => reject(request.error);
+  });
+}
+async function writeLocal(snapshot) {
+  db = await dbReady;
+  if (!db) {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(snapshot));
+    return;
+  }
+  await new Promise((resolve, reject) => {
+    const tx = db.transaction("workspace", "readwrite");
+    tx.objectStore("workspace").put(snapshot, "reports");
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error || new Error("本机存储写入中断"));
+  });
+}
+function persist() {
+  localDirty = true;
+  const sequence = ++saveSequence;
+  $("#saveState").textContent = "正在保存到本机…";
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const snapshot = structuredClone(state);
+    saveChain = saveChain.catch(() => {
+    }).then(() => writeLocal(snapshot)).then(() => {
+      if (sequence === saveSequence) {
+        localDirty = false;
+        $("#saveState").textContent = "已保存到本机";
+      }
+    }).catch(() => {
+      $("#saveState").textContent = "本机保存受限，请导出备份";
+      notify("浏览器未能保存，请点击“导出备份”保留文字和图片。");
+    });
+  }, 250);
+}
+function newItem(type = "design", featured = true) {
+  return { id: uid(), type, taskKey: type === "sample" ? "sample" : "design-main", code: "", name: "", owner: "", factory: "", round: "首样", goal: "", progress: "", issue: "", next: "", stage: type === "design" ? "设计中" : "制作中", review: type === "design" ? "未提交" : "待确认", planned: "", actual: "", featured, images: [] };
+}
+const stages = { design: ["未开始", "设计中", "待审核", "修改中", "已定稿", "已暂停", "已取消"], sample: ["待下单", "备料中", "制作中", "待寄出", "运输中", "已到样", "修改中", "已确认", "已暂停", "已取消"] };
+function scheduling(item, r = current()) {
+  const type = itemTask(item, r).type;
+  if (item.stage === "已取消" || item.stage === "已暂停") return item.stage;
+  if (!dateValid(r)) return "待填统计日期";
+  if (item.actual && item.actual > r.cutoff) return type === "sample" ? "到样日晚于截至" : "定稿日晚于截至";
+  if (type === "sample" && item.actual) {
+    return item.review === "通过" ? "已确认" : item.review === "修改" ? "待改样" : "待确认";
+  }
+  if (type === "design" && item.review === "通过") {
+    if (!item.actual) return "待填定稿日";
+    return item.planned && item.actual > item.planned ? "延期完成" : "已完成";
+  }
+  if (!item.planned) return type === "design" ? "待填计划日" : "待填到样日";
+  return item.planned < r.cutoff ? "已逾期" : item.planned === r.cutoff ? type === "design" ? "今日到期" : "今日到样" : "计划内";
+}
+function badge(text) {
+  const cls = text === "通过" || text === "已确认" || text === "已完成" ? "green" : text === "已逾期" ? "red" : /修改|待改|今日|待填|延期|晚于/.test(text) ? "amber" : /待审|待确认/.test(text) ? "blue" : "";
+  return `<span class="badge ${cls}">${escapeHTML(text || "未填写")}</span>`;
+}
+function metrics(type, taskKey) {
+  const r = current(), items = r.items.filter((i) => i.stage !== "已取消" && (taskKey ? itemTask(i, r).id === taskKey : itemTask(i, r).type === type)), live = items.filter((i) => i.stage !== "已暂停");
+  return { follow: items.length, done: dateValid(r) ? items.filter((i) => i.actual >= r.weekStart && i.actual <= r.cutoff && (type === "sample" || i.review === "通过")).length : null, pending: live.filter((i) => type === "design" ? ["待审核", "修改"].includes(i.review) : ["待确认", "待改样"].includes(scheduling(i, r))).length, overdue: dateValid(r) ? live.filter((i) => scheduling(i, r) === "已逾期").length : null };
+}
+function renderMeta() {
+  const r = current();
+  for (const [id, key] of Object.entries({ weekStart: "weekStart", cutoff: "cutoff", reporter: "reporter", department: "department", reportStatus: "status" })) {
+    $("#" + id).value = r[key] || "";
+    $("#" + id + "Display").textContent = ["weekStart", "cutoff"].includes(id) ? formatDate(r[key]) : r[key] || "未填写";
+  }
+  $("#weekEnd").textContent = formatDate(addDays(r.weekStart, 6));
+  $("#cutoff").min = r.weekStart;
+  $("#cutoff").max = addDays(r.weekStart, 6);
+  $("#dateError").hidden = dateValid(r);
+  $("#dateError").textContent = "请填写日期，统计截至日期须在本周范围内。";
+  $("#reportSelect").innerHTML = [...state.reports].sort((a, b) => b.weekStart.localeCompare(a.weekStart)).map((report) => `<option value="${report.id}">${formatDate(report.weekStart)} — ${formatDate(addDays(report.weekStart, 6)).slice(5)}</option>`).join("");
+  $("#reportSelect").value = r.id;
+  $("#periodLabel").textContent = `统计截至 ${formatDate(r.cutoff)}`;
+  $("#footerPeriod").textContent = `${formatDate(r.weekStart)} — ${formatDate(addDays(r.weekStart, 6))}`;
+}
+function renderSummary() {
+  const r = current(), tasks = [{ id: "design-main", label: r.designLabel, type: "design" }, ...ensureTasks(r).map((task) => ({ ...task, type: "design" })), { id: "sample", label: "样品", type: "sample" }];
+  $("#summaryRows").innerHTML = tasks.map((task, index) => {
+    const m = metrics(task.type, task.id);
+    return `<tr><td>${task.type === "design" ? `<input ${index === 0 ? 'id="designTaskLabel"' : `data-task-id="${task.id}"`} aria-label="设计任务${index + 1}名称" placeholder="填写任务名称" value="${escapeHTML(task.label)}">` : "样品"}</td><td>${task.type === "design" ? "审核通过且本周定稿" : "本周实际到样"}</td><td>${m.follow}</td><td>${m.done ?? "—"}</td><td>${m.pending}</td><td class="${m.overdue ? "danger-count" : ""}">${m.overdue ?? "—"}</td></tr>`;
+  }).join("");
+  $("#designCount").textContent = r.items.filter((i) => itemTask(i, r).type === "design").length;
+  $("#sampleCount").textContent = r.items.filter((i) => itemTask(i, r).type === "sample").length;
+}
+function emptyUpload(taskKey) {
+  const task = taskChoices().find((task2) => task2.id === taskKey);
+  return `<button type="button" class="upload-tile" data-upload-task="${task?.id || "design-main"}"><span class="upload-icon">${icon("image")}</span><strong>提交作品</strong><small>${task ? `对应任务：${escapeHTML(task.label)}` : "选择本周任务，上传设计图片"}</small><small>点击编辑作品，或将图片拖到这里</small><small>JPG / PNG / WebP · 支持多选</small></button>`;
+}
+function renderGalleryPicture(item) {
+  const hasImages = item.images.length > 0, name = escapeHTML(item.name || "未命名成果");
+  const thumbnails = item.images.slice(1).map((image, index) => `<button type="button" class="picture-thumbnail" data-action="view-image" data-id="${item.id}" data-image-index="${index + 1}" aria-label="放大查看${name}的第 ${index + 2} 张图片" title="查看第 ${index + 2} 张图片"><img src="${escapeHTML(imageSrc(image))}" alt="${escapeHTML(image.name || `第 ${index + 2} 张图片`)}" loading="lazy"></button>`).join("");
+  return `<div class="picture-frame"><button type="button" class="picture-area ${hasImages ? "" : "picture-empty"}" data-action="${hasImages ? "view-image" : "upload-image"}" data-id="${item.id}" aria-label="${hasImages ? "放大查看" : "插入图片"}：${name}">${hasImages ? `<img src="${escapeHTML(imageSrc(item.images[0]))}" alt="${name}" loading="lazy">` : `${icon("image")}<span>插入图片</span>`}<span class="type-label">${escapeHTML(itemTask(item).label)}</span>${item.images.length > 1 ? `<span class="image-count">${item.images.length} 张图片</span>` : ""}</button>${thumbnails ? `<div class="picture-thumbnails" role="group" aria-label="更多款式图片">${thumbnails}</div>` : ""}</div>`;
+}
+function renderGallery() {
+  renderGalleryFilters();
+  const r = current(), all = r.items.filter((i) => i.featured && i.stage !== "已取消"), items = all.filter((i) => filter === "all" || itemTask(i, r).id === filter);
+  $("#achievementCount").textContent = `${all.length} 项成果`;
+  $("#gallery").classList.toggle("empty", items.length === 0);
+  $("#gallery").innerHTML = items.length ? items.map((item) => `<article class="achievement-card" data-id="${item.id}">${renderGalleryPicture(item)}<div class="card-body"><div class="card-code">${escapeHTML(item.code || "款号待补充")}</div><div class="card-heading"><h3>${escapeHTML(item.name || "未命名成果")}</h3>${badge(item.review)}</div><p class="card-progress">${escapeHTML(item.goal || item.progress || "补充设计说明")}</p><div class="card-meta"><span>${escapeHTML(item.owner || "设计师待填写")}</span><span>${item.actual ? formatDate(item.actual) : item.submittedAt ? "提交于 " + new Date(item.submittedAt).toLocaleDateString("zh-CN") : "完成日期待填写"}</span></div><div class="card-actions editor-only"><div class="row"><button class="button quiet" data-action="edit-record" data-id="${item.id}">编辑成果</button><button class="button quiet" data-action="upload-image" data-id="${item.id}">添加图片</button></div><button class="button quiet remove-action" data-action="unfeature" data-id="${item.id}" aria-label="从总览移除${escapeHTML(item.name)}">移出展示</button></div></div></article>`).join("") : emptyUpload(filter);
+}
+function renderSupport(kind) {
+  const rows = current()[kind], isRisk = kind === "risks";
+  $("#" + kind).innerHTML = rows.length ? `<div class="table-wrap"><table class="support-table"><thead><tr>${(isRisk ? ["款号 / 鞋款", "问题与处理动作", "负责人", "解决日期", "影响程度", ""] : ["款号 / 鞋款", "下周计划与验收标准", "负责人", "截止日期", "优先级", ""]).map((h, i) => `<th ${i === 5 ? 'class="editor-only"' : ""}>${h}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr data-support-id="${row.id}" data-kind="${kind}"><td><input data-key="code" aria-label="款号或鞋款" placeholder="款号 / 鞋款" value="${escapeHTML(row.code)}"><span class="print-value">${escapeHTML(row.code || "—")}</span></td><td><textarea data-key="text" aria-label="${isRisk ? "问题与处理动作" : "下周计划"}" rows="2" placeholder="${isRisk ? "填写问题、影响及具体处理动作" : "填写计划、交付物与验收标准"}">${escapeHTML(row.text)}</textarea><span class="print-value">${escapeHTML(row.text || "—")}</span></td><td><input data-key="owner" aria-label="负责人" placeholder="姓名" value="${escapeHTML(row.owner)}"><span class="print-value">${escapeHTML(row.owner || "—")}</span></td><td><input data-key="date" type="date" aria-label="${isRisk ? "解决日期" : "截止日期"}" value="${escapeHTML(row.date)}"><span class="print-value">${formatDate(row.date)}</span></td><td><select data-key="priority" aria-label="${isRisk ? "影响程度" : "优先级"}">${["高", "中", "低"].map((p) => `<option ${row.priority === p ? "selected" : ""}>${p}</option>`).join("")}</select><span class="print-value">${escapeHTML(row.priority)}</span></td><td class="editor-only"><button class="icon-button" data-action="remove-support" data-id="${row.id}" data-kind="${kind}" aria-label="删除事项">${icon("trash")}</button></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty-line">${isRisk ? "本周暂无待确认事项。" : "添加下周计划，明确交付内容与完成时间。"}</div>`;
+}
+function renderDetail() {
+  const type = view === "sample" ? "sample" : "design", items = current().items.filter((i) => itemTask(i).type === type);
+  $("#detailTitle").textContent = type === "design" ? "设计进度明细" : "样品进度明细";
+  $("#detailDescription").textContent = type === "design" ? "同款迭代记录在本周成果中，审核通过后填写实际定稿日期。" : "同款不同工厂或不同轮次分行填写，分别跟进到样与确认结果。";
+  $("#addRecordButton").textContent = type === "design" ? "新增设计记录" : "新增样品记录";
+  if (!items.length) {
+    $("#detailTable").innerHTML = `<div class="detail-empty"><p>暂无${type === "design" ? "设计" : "样品"}记录</p><button class="button outline" data-action="add-detail">添加第一条记录</button></div>`;
+    return;
+  }
+  $("#detailTable").innerHTML = `<table class="detail-table"><thead><tr><th>款号 / 鞋款</th><th>${type === "design" ? "设计师" : "工厂 / 跟进人"}</th><th>设计说明</th><th>本周成果 / 问题处理</th><th>阶段 / 审核</th><th>计划 / 实际${type === "design" ? "定稿" : "到样"}</th><th>排期提醒</th><th>下周动作</th><th>操作</th></tr></thead><tbody>${items.map((item) => `<tr><td class="title-cell"><small>${escapeHTML(item.code || "款号待填")}</small><strong>${escapeHTML(item.name)}</strong>${item.images.length ? `<button class="button quiet" data-action="view-image" data-id="${item.id}">查看 ${item.images.length} 张图片</button>` : ""}</td><td>${type === "sample" ? `${escapeHTML(item.factory || "工厂待填")}<br><span class="secondary">${escapeHTML(item.round)}</span><br>` : ""}${escapeHTML(item.owner || "负责人待填")}</td><td class="text-cell">${escapeHTML(item.goal || "—")}</td><td class="text-cell">${escapeHTML([item.progress, item.issue].filter(Boolean).join("\n") || "—")}</td><td>${escapeHTML(item.stage)}<br>${badge(item.review)}</td><td class="date-cell"><span>计划</span> ${formatDate(item.planned)}<br><span>实际</span> ${formatDate(item.actual)}</td><td>${badge(scheduling(item))}</td><td class="text-cell">${escapeHTML(item.next || "—")}</td><td><button class="button quiet" data-action="edit-record" data-id="${item.id}">编辑</button><button class="button quiet remove-action" data-action="delete-record" data-id="${item.id}">删除</button></td></tr>`).join("")}</tbody></table>`;
+}
+function setView(next) {
+  view = next;
+  $("#overviewView").hidden = view !== "overview";
+  $("#detailView").hidden = view === "overview";
+  $$("[data-view]").forEach((b) => {
+    b.classList.toggle("active", b.dataset.view === view);
+    b.setAttribute("aria-pressed", String(b.dataset.view === view));
+  });
+  if (view !== "overview") renderDetail();
+}
+function render() {
+  renderMeta();
+  renderSummary();
+  renderGallery();
+  renderSupport("risks");
+  renderSupport("plans");
+  if (view !== "overview") renderDetail();
+}
+function pickImages(context) {
+  uploadContext = context;
+  $("#imagePicker").value = "";
+  $("#imagePicker").click();
+}
+async function prepareImage(file) {
+  if (!/^image\/(jpeg|png|webp|gif|bmp)$/.test(file.type)) throw new Error("请选择 JPG、PNG、WebP、GIF 或 BMP 图片。");
+  const bitmap = await createImageBitmap(file);
+  const max = 1600, ratio = Math.min(1, max / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * ratio);
+  canvas.height = Math.round(bitmap.height * ratio);
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+  return { id: uid(), name: file.name, data: canvas.toDataURL("image/webp", 0.82), width: canvas.width, height: canvas.height };
+}
+async function handleFiles(files, context) {
+  const list = [...files];
+  if (!list.length) return;
+  const ownerReport = current(), targetDraft = context.draft ? draft : null;
+  let count = 0;
+  $("#saveState").textContent = "正在处理图片…";
+  for (const file of list) {
+    try {
+      const image = await prepareImage(file);
+      if (context.draft) {
+        if (targetDraft) targetDraft.images.push(image);
+      } else if (context.id) {
+        const item = ownerReport.items.find((i) => i.id === context.id);
+        if (item) item.images.push(image);
+      } else {
+        const task = taskChoices(ownerReport).find((task2) => task2.id === context.taskKey), item = newItem(task?.type || context.type || "design", true);
+        if (task) item.taskKey = task.id;
+        item.name = file.name.replace(/\.[^.]+$/, "");
+        item.images.push(image);
+        ownerReport.items.push(item);
+      }
+      count++;
+    } catch (error) {
+      notify(error.message || "图片读取失败，请换一张重试。");
+    }
+  }
+  if (context.draft) {
+    if (draft === targetDraft) renderDraftImages();
+    $("#saveState").textContent = localDirty ? "本机更改待保存" : "本机自动保存";
+  } else {
+    persist();
+    renderSummary();
+    renderGallery();
+    if (view !== "overview") renderDetail();
+  }
+  if (count) notify(`已插入 ${count} 张图片${context.draft ? "" : "，可编辑补充成果信息"}。`);
+}
+function syncTypeFields(preserveStage = false) {
+  const form = $("#recordForm"), task = taskChoices().find((task2) => task2.id === form.elements.taskKey.value) || itemTask(draft), type = task.type;
+  draft.type = type;
+  $$(".sample-field").forEach((f) => f.hidden = type !== "sample");
+  $("#plannedLabel").textContent = type === "design" ? "计划定稿日期" : "计划到样日期";
+  $("#actualLabel").textContent = type === "design" ? "实际定稿日期" : "实际到样日期";
+  const select = form.elements.stage, prior = select.value;
+  select.innerHTML = stages[type].map((s) => `<option>${s}</option>`).join("");
+  select.value = preserveStage && stages[type].includes(prior) ? prior : stages[type].includes(draft.stage) ? draft.stage : stages[type][1];
+  draft.stage = select.value;
+}
+function openEditor(id = null, type = "design", featured = true, taskKey = null) {
+  const existing = current().items.find((i) => i.id === id);
+  draft = structuredClone(existing || newItem(type, featured));
+  if (!existing && taskKey) draft.taskKey = taskKey;
+  draft.taskKey = itemTask(draft).id;
+  const form = $("#recordForm");
+  form.reset();
+  form.elements.taskKey.innerHTML = taskChoices().map((task) => `<option value="${task.id}">${escapeHTML(task.label)}</option>`).join("");
+  for (const key of ["taskKey", "code", "name", "owner", "factory", "round", "review", "planned", "actual", "goal", "issue"]) form.elements[key].value = draft[key] || (key === "taskKey" ? "design-main" : "");
+  form.elements.featured.checked = draft.featured;
+  syncTypeFields();
+  form.elements.stage.value = draft.stage;
+  $("#dialogTitle").textContent = existing ? "编辑成果" : "提交作品";
+  renderDraftImages();
+  $("#recordDialog").showModal();
+}
+function renderDraftImages() {
+  if (!draft) return;
+  $("#draftImages").innerHTML = draft.images.length ? draft.images.map((img, index) => `<div class="draft-image"><button type="button" class="thumb" data-draft-view="${index}" aria-label="放大查看${escapeHTML(img.name)}"><img src="${escapeHTML(imageSrc(img))}" alt="${escapeHTML(img.name)}"></button><button type="button" class="remove-thumb" data-draft-remove="${img.id}" aria-label="移除${escapeHTML(img.name)}">×</button></div>`).join("") : '<button class="draft-drop" id="draftDropButton" type="button">点击插入图片，或将图片拖到这里</button>';
+}
+function openLightbox(images, index = 0) {
+  if (!images.length) return;
+  lightboxImages = images;
+  lightboxIndex = index;
+  renderLightbox();
+  $("#lightbox").showModal();
+}
+function renderLightbox() {
+  const img = lightboxImages[lightboxIndex];
+  $("#lightboxImage").src = imageSrc(img);
+  $("#lightboxImage").alt = img.name;
+  $("#lightboxCaption").textContent = `${img.name}　${lightboxIndex + 1} / ${lightboxImages.length}`;
+  $("#previousImage").hidden = lightboxImages.length < 2;
+  $("#nextImage").hidden = lightboxImages.length < 2;
+}
+function cycleImage(delta) {
+  lightboxIndex = (lightboxIndex + delta + lightboxImages.length) % lightboxImages.length;
+  renderLightbox();
+}
+function addSupport(kind) {
+  current()[kind].push({ id: uid(), code: "", text: "", owner: "", date: "", priority: "中" });
+  renderSupport(kind);
+  persist();
+  const last = $(`#${kind} tbody tr:last-child input`);
+  last?.focus();
+}
+function downloadFile(blob, name) {
+  const url = URL.createObjectURL(blob), link = document.createElement("a");
+  link.href = url;
+  link.download = name;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1e4);
+}
+async function exportBackup() {
+  downloadFile(new Blob([JSON.stringify(state, null, 2)], { type: "application/json;charset=utf-8" }), "LIEGU_周报备份_" + current().weekStart + ".json");
+  notify("备份已导出，包含全部历史周报、文字和图片。");
+}
+function buildPresentation() {
+  const priorFilter = filter, priorView = view;
+  filter = "all";
+  setView("overview");
+  render();
+  const clone = document.documentElement.cloneNode(true);
+  const liveControls = $$("input,textarea,select");
+  const copiedControls = [...clone.querySelectorAll("input,textarea,select")];
+  liveControls.forEach((control, index) => {
+    const copy = copiedControls[index];
+    if (!copy) return;
+    if (control.type === "file") {
+      copy.remove();
+      return;
+    }
+    const value = document.createElement("span");
+    value.className = "snapshot-value";
+    value.textContent = control.tagName === "SELECT" ? control.selectedOptions[0]?.textContent || "—" : control.type === "checkbox" ? control.checked ? "是" : "否" : control.value || "—";
+    copy.replaceWith(value);
+  });
+  clone.querySelectorAll("script,dialog,noscript,.top-actions,.report-switch,.page-tabs,.editor-only,.display-value,.print-value,#detailView,#toast").forEach((node) => node.remove());
+  clone.querySelector("body").classList.remove("presenting");
+  clone.querySelector("body").classList.add("snapshot");
+  const note = clone.querySelector(".local-note");
+  if (note) note.textContent = "周报展示文件 · 本周文字、图片和样式已包含在本文件中。";
+  clone.querySelectorAll(".picture-area,.picture-thumbnail").forEach((button) => {
+    const box = document.createElement("div");
+    box.className = button.className;
+    box.innerHTML = button.innerHTML;
+    button.replaceWith(box);
+  });
+  clone.querySelectorAll(".achievement-card").forEach((card) => {
+    const item = current().items.find((work) => work.id === card.dataset.id);
+    if (!item || item.images.length < 2) return;
+    const details = document.createElement("details");
+    details.className = "snapshot-images";
+    const summary = document.createElement("summary");
+    summary.textContent = "展开查看此款全部 " + item.images.length + " 张图片";
+    details.append(summary);
+    item.images.forEach((image, index) => {
+      const figure = document.createElement("figure"), picture = document.createElement("img"), caption = document.createElement("figcaption");
+      picture.src = imageSrc(image);
+      picture.alt = image.name || "设计图片";
+      caption.textContent = index + 1 + ". " + (image.name || "设计图片");
+      figure.append(picture, caption);
+      details.append(figure);
+    });
+    card.querySelector(".card-body").append(details);
+  });
+  const gallery = clone.querySelector("#gallery");
+  if (!current().items.some((item) => item.featured && item.stage !== "已取消")) gallery.innerHTML = '<p class="static-empty">本周暂无设计图稿。</p>';
+  filter = priorFilter;
+  setView(priorView);
+  render();
+  return "<!doctype html>\n" + clone.outerHTML;
+}
+function exportPresentation() {
+  const html = buildPresentation(), blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  if (blob.size > 12 * 1024 * 1024) {
+    notify("展示文件约 " + (blob.size / 1024 / 1024).toFixed(1) + " MB，超过飞书 12 MB 预览上限。请减少图片后重试；可先导出备份保留全部内容。");
+    return;
+  }
+  downloadFile(blob, "LIEGU_周报展示_" + current().weekStart + ".html");
+  notify("展示 HTML 已导出。把这个文件上传飞书，即可分享本周文字和图片。");
+}
+function validateBackup(data) {
+  if (!data || data.version !== 1 || !Array.isArray(data.reports) || !data.reports.length) throw new Error("这不是有效的 LIEGU 周报备份。");
+  const validId = (id) => typeof id === "string" && /^[a-zA-Z0-9_-]{1,100}$/.test(id);
+  for (const r of data.reports) {
+    if (!validId(r.id) || !validISODate(r.weekStart) || !Array.isArray(r.items) || !Array.isArray(r.risks) || !Array.isArray(r.plans)) throw new Error("备份内容不完整。");
+    for (const row of [...r.risks, ...r.plans]) if (!validId(row.id)) throw new Error("计划或事项数据不完整。");
+    for (const i of r.items) {
+      if (!validId(i.id) || !["design", "sample"].includes(i.type) || !Array.isArray(i.images)) throw new Error("成果数据不完整。");
+      for (const image of i.images) if (!validId(image.id) || !/^data:image\/(webp|png|jpeg|gif|bmp);base64,[a-zA-Z0-9+/=\s]+$/.test(image.data)) throw new Error("备份中的图片须包含完整图片数据。请在原周报点击“导出备份”后再导入。");
+    }
+  }
+  for (const report of data.reports) {
+    ensureTasks(report);
+    for (const task of report.extraTasks) if (!validId(task.id)) throw new Error("任务标识不正确。");
+    for (const item of report.items) if (!item.taskKey) item.taskKey = itemTask(item, report).id;
+  }
+  return data;
+}
+async function importBackup(file) {
+  try {
+    const data = validateBackup(JSON.parse(await file.text()));
+    let added = 0;
+    for (const r of data.reports) {
+      const existing = state.reports.find((i) => i.id === r.id);
+      if (existing) {
+        r.id = uid();
+      }
+      for (const item of r.items) if (item.submissionId) {
+        delete item.submissionId;
+        delete item.submittedAt;
+        item.id = uid();
+      }
+      state.reports.push(r);
+      added++;
+    }
+    state.activeReportId = data.reports[0].id;
+    setView("overview");
+    persist();
+    render();
+    notify(`已导入 ${added} 份周报，原有周报已保留。`);
+  } catch (e) {
+    notify(e.message || "备份读取失败。");
+  }
+}
+$("#uploadButton").innerHTML = icon("image") + "提交作品";
+$$(".icon-button[data-close]").forEach((b) => b.innerHTML = icon("close"));
+$("#uploadButton").addEventListener("click", () => openGalleryEditor());
+$("#draftUploadButton").addEventListener("click", () => pickImages({ draft: true }));
+$("#imagePicker").addEventListener("change", (e) => handleFiles(e.target.files, uploadContext));
+$("#addRecordButton").addEventListener("click", () => openEditor(null, view === "sample" ? "sample" : "design", false));
+$("#recordForm").elements.taskKey.addEventListener("change", () => syncTypeFields(true));
+$("#recordForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!draft) return;
+  syncTypeFields(true);
+  const form = event.currentTarget;
+  for (const key of ["taskKey", "code", "name", "owner", "factory", "round", "goal", "issue", "stage", "review", "planned", "actual"]) draft[key] = form.elements[key].value.trim();
+  draft.featured = form.elements.featured.checked;
+  const index = current().items.findIndex((i) => i.id === draft.id);
+  if (index < 0) current().items.push(draft);
+  else current().items[index] = draft;
+  draft = null;
+  $("#recordDialog").close();
+  persist();
+  render();
+  notify("成果已保存。");
+});
+$("#recordDialog").addEventListener("close", () => {
+  draft = null;
+});
+document.addEventListener("click", (event) => {
+  const close = event.target.closest("[data-close]");
+  if (close) {
+    $("#" + close.dataset.close).close();
+    return;
+  }
+  const tab = event.target.closest("[data-view]");
+  if (tab) {
+    setView(tab.dataset.view);
+    return;
+  }
+  const filterButton = event.target.closest("[data-filter]");
+  if (filterButton) {
+    filter = filterButton.dataset.filter;
+    renderGallery();
+    return;
+  }
+  const upload = event.target.closest("[data-upload-task]");
+  if (upload) {
+    openGalleryEditor(upload.dataset.uploadTask);
+    return;
+  }
+  if (event.target.closest("#draftDropButton")) {
+    pickImages({ draft: true });
+    return;
+  }
+  const removeThumb = event.target.closest("[data-draft-remove]");
+  if (removeThumb && draft) {
+    draft.images = draft.images.filter((i) => i.id !== removeThumb.dataset.draftRemove);
+    renderDraftImages();
+    return;
+  }
+  const draftView = event.target.closest("[data-draft-view]");
+  if (draftView && draft) {
+    openLightbox(draft.images, Number(draftView.dataset.draftView));
+    return;
+  }
+  const button = event.target.closest("[data-action]");
+  if (!button) return;
+  const id = button.dataset.id, item = current().items.find((i) => i.id === id);
+  switch (button.dataset.action) {
+    case "edit-record":
+      openEditor(id);
+      break;
+    case "upload-image":
+      pickImages({ id });
+      break;
+    case "view-image":
+      if (item) openLightbox(item.images, Number(button.dataset.imageIndex) || 0);
+      break;
+    case "unfeature":
+      if (item) {
+        item.featured = false;
+        persist();
+        renderGallery();
+        notify("已移出展示，记录和图片保留在明细中。");
+      }
+      break;
+    case "delete-record":
+      if (item && confirm(`删除“${item.name}”及其图片？`)) {
+        if (item.submissionId) deletedSubmissionIds.add(item.submissionId);
+        current().items = current().items.filter((i) => i.id !== id);
+        persist();
+        render();
+      }
+      break;
+    case "add-detail":
+      openEditor(null, view === "sample" ? "sample" : "design", false);
+      break;
+    case "remove-support":
+      current()[button.dataset.kind] = current()[button.dataset.kind].filter((i) => i.id !== id);
+      persist();
+      renderSupport(button.dataset.kind);
+      break;
+  }
+});
+document.addEventListener("input", (event) => {
+  const el = event.target;
+  if (el.id === "assignmentNotes") {
+    current().assignmentNotes = el.value;
+    persist();
+    return;
+  }
+  if (el.dataset.taskId) {
+    const task = ensureTasks(current()).find((t) => t.id === el.dataset.taskId);
+    if (task) {
+      task.label = el.value;
+      persist();
+      renderGallery();
+    }
+    return;
+  }
+  if (el.id === "designTaskLabel") {
+    current().designLabel = el.value;
+    persist();
+    renderGallery();
+    return;
+  }
+  if (el.dataset.meta) {
+    current()[el.dataset.meta] = el.value;
+    renderMeta();
+    renderSummary();
+    if (view !== "overview") renderDetail();
+    persist();
+    return;
+  }
+  if (el.dataset.key) {
+    const tr = el.closest("[data-support-id]");
+    if (tr) {
+      const row = current()[tr.dataset.kind].find((i) => i.id === tr.dataset.supportId);
+      row[el.dataset.key] = el.value;
+      const print = el.nextElementSibling;
+      if (print?.classList.contains("print-value")) print.textContent = el.type === "date" ? formatDate(el.value) : el.value;
+      persist();
+    }
+  }
+});
+$("#reportSelect").addEventListener("change", (event) => {
+  state.activeReportId = event.target.value;
+  persist();
+  render();
+});
+$("#newReportButton").addEventListener("click", () => {
+  const form = $("#newReportForm");
+  form.elements.weekStart.value = addDays(current().weekStart, 7);
+  $("#newReportDialog").showModal();
+});
+$("#newReportForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const week = event.currentTarget.elements.weekStart.value;
+  if ((/* @__PURE__ */ new Date(week + "T12:00:00Z")).getUTCDay() !== 1) {
+    notify("请选择周一作为周开始日期。");
+    return;
+  }
+  const duplicate = state.reports.find((r) => r.weekStart === week);
+  if (duplicate) {
+    state.activeReportId = duplicate.id;
+    notify("已打开该周已有的周报。");
+  } else {
+    const r = makeReport(week, current().reporter);
+    r.department = current().department;
+    r.designLabel = current().designLabel;
+    state.reports.push(r);
+    state.activeReportId = r.id;
+    notify("新周报已创建，历史周报已保留。");
+  }
+  $("#newReportDialog").close();
+  setView("overview");
+  persist();
+  render();
+});
+$("#presentationButton").addEventListener("click", () => {
+  const on = document.body.classList.toggle("presenting");
+  if (on) setView("overview");
+  $("#presentationButton").textContent = on ? "退出汇报模式" : "汇报模式";
+});
+$("#printButton").addEventListener("click", () => {
+  setView("overview");
+  window.print();
+});
+$("#backupButton").addEventListener("click", exportBackup);
+$("#importButton").addEventListener("click", () => {
+  $("#backupPicker").value = "";
+  $("#backupPicker").click();
+});
+$("#backupPicker").addEventListener("change", (event) => {
+  if (event.target.files[0]) importBackup(event.target.files[0]);
+});
+$("#addRiskButton").addEventListener("click", () => addSupport("risks"));
+$("#addPlanButton").addEventListener("click", () => addSupport("plans"));
+$("#closeLightbox").addEventListener("click", () => $("#lightbox").close());
+$("#previousImage").addEventListener("click", () => cycleImage(-1));
+$("#nextImage").addEventListener("click", () => cycleImage(1));
+document.addEventListener("keydown", (event) => {
+  if (!$("#lightbox").open) return;
+  if (event.key === "ArrowRight") cycleImage(1);
+  if (event.key === "ArrowLeft") cycleImage(-1);
+});
+function wireDrop(el, context) {
+  el.addEventListener("dragover", (event) => {
+    if (!event.dataTransfer.types.includes("Files")) return;
+    event.preventDefault();
+    el.classList.add("dragging");
+  });
+  el.addEventListener("dragleave", (event) => {
+    if (!el.contains(event.relatedTarget)) el.classList.remove("dragging");
+  });
+  el.addEventListener("drop", (event) => {
+    event.preventDefault();
+    el.classList.remove("dragging");
+    handleFiles(event.dataTransfer.files, typeof context === "function" ? context() : context);
+  });
+}
+wireDrop($("#gallery"), () => ({ type: galleryTask().type, taskKey: galleryTask().id }));
+wireDrop($(".image-editor"), { draft: true });
+window.addEventListener("beforeunload", (event) => {
+  if (localDirty) {
+    event.preventDefault();
+    event.returnValue = "";
+  }
+});
+async function initialize() {
+  try {
+    const cached = await readLocal();
+    if (cached) state = validateBackup(cached);
+    state.reports.forEach(ensureTasks);
+    render();
+    $("#saveState").textContent = cached ? "已读取本机数据" : "本机自动保存";
+  } catch {
+    render();
+    $("#saveState").textContent = "本机存储受限，请及时导出备份";
+  }
+}
+$("#exportHtmlButton").addEventListener("click", exportPresentation);
+
+// GitHub Pages 项目网站位于 /仓库名/；保留这个路径再分享。
+function openPageShare() {
+  if (!['http:', 'https:'].includes(window.location.protocol)) {
+    notify('这是本地文件。请先上传为 index.html 并开启 GitHub Pages，再打开网页分享。');
+    return;
+  }
+  const url = new URL(window.location.href);
+  url.hash = '';
+  url.search = '';
+  url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+  $('#sharePageUrl').value = url.href;
+  $('#sharePageDialog').showModal();
+}
+async function copyPageLink() {
+  const input = $('#sharePageUrl');
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('请手动复制');
+    await navigator.clipboard.writeText(input.value);
+    notify('网页链接已复制，可转发给设计师。');
+  } catch {
+    input.focus();
+    input.select();
+    notify('浏览器未允许自动复制，请复制已选中的网页地址。');
+  }
+}
+$('#sharePageButton').addEventListener('click', openPageShare);
+$('#copyPageLinkButton').addEventListener('click', copyPageLink);
+
+initialize();
+</script>
+</body>
+</html>
